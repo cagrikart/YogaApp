@@ -10,7 +10,12 @@ public class PackageMapperUtil {
         PackageResponse response = new PackageResponse();
         response.setName(packages.getName());
         response.setPrice(packages.getPrice());
-        response.setUserId(packages.getUser().getId());
+        response.setPackageTime(packages.getPackageTime());
+        response.setStatus(packages.isStatus());
+        response.setStartingTime(packages.getStartingTime());
+        response.setFinishingTime(packages.getFinishingTime());
+        response.setRemaningDay(packages.getRemaningDay());
+        response.setUserId(packages.getUsers().getId());
         return response;
     }
 }

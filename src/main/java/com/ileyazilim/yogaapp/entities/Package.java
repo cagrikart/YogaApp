@@ -11,11 +11,15 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String packageTime;
+    private String startingTime;
+    private String finishingTime;
+    private String remaningDay;
+    private boolean status;
     private double price;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private User user;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = true)
+    private User users;
 
 
 }

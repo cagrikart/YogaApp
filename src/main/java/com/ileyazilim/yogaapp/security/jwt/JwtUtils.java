@@ -1,6 +1,5 @@
 package com.ileyazilim.yogaapp.security.jwt;
 
-
 import com.ileyazilim.yogaapp.services.concrete.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
@@ -23,18 +22,19 @@ public class JwtUtils {
     @Value("${cke.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    // Güvenlik nedeniyle jwtSecret gizli anahtarını paylaşmamanızı öneririm.
+    private SecretKey key() {
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
+
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(key(), SignatureAlgorithm.HS256)
                 .compact();
-    }
-
-    private Key key() {
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256); // HMAC-SHA256 anahtarı oluşturulur.
     }
 
     public String getUserNameFromJwtToken(String token) {

@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Data
 public class ReservationRequest {
     private Long id;
+    private LocalDateTime dateTime;
+
     private LocalDateTime startingDate;
     private LocalDateTime finishingDate;
 

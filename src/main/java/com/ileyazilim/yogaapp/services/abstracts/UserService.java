@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface UserService {
     DataResult<List<UserResponse>> listUser();
+    DataResult<List<UserResponse>> listUserId(Long userId);
 
 }

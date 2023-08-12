@@ -66,6 +66,7 @@ public class AuthController {
                 roles));
     }
 
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -83,7 +84,16 @@ public class AuthController {
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getPhoneNumber(),
+                signUpRequest.getTcNo(),
+                signUpRequest.getBirthday(),
+                signUpRequest.getBirthPlace(),
+                signUpRequest.getAddress(),
+                signUpRequest.getPhoto(),
+                signUpRequest.getEmergencyContactPersonv1(),
+                signUpRequest.getEmergencyContactPersonv2(),
+                signUpRequest.getDegreeOfProximity());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

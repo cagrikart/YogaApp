@@ -10,6 +10,7 @@ import com.ileyazilim.yogaapp.util.UserMapperUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,4 +25,13 @@ public class UserServiceImpl implements UserService {
         List<UserResponse> responses = users.stream().map(mapperUtil::listUser).collect(Collectors.toList());
         return new SuccessDataResult<>(responses,"listed user");
     }
+
+    @Override
+    public DataResult<List<UserResponse>> listUserId(Long userId) {
+        List<User> users = this.userRepository.findAllById(Collections.singleton(userId)); // Kullanıcıları tek bir kimlikle almak için findAllById kullanıyoruz.
+        List<UserResponse> responses = users.stream().map(mapperUtil::listUser).collect(Collectors.toList());
+        return new SuccessDataResult<>(responses, "Listed user");
+    }
+
+
 }
