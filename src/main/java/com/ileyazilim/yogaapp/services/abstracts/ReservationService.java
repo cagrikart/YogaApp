@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReservationService {
     DataResult<List<ReservationResponse>> listReservation();
-    DataResult<List<Reservation>> getReservationsByUserId(Long userId);
+    DataResult<List<Reservation>> getReservationsByUserId(String userId);
     Result createReservation(ReservationRequest reservationRequest);
     Result updateReservationProcess(ReservationUpdateRequest reservationRequest, Long reservationId);
 

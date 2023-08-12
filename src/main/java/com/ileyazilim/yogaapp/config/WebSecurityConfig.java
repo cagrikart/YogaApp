@@ -62,20 +62,27 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-                .authorizeHttpRequests(auth ->
-                        auth.antMatchers("/api/auth/**").permitAll()
-                                //.antMatchers("/api/test/**").permitAll()
-                                .antMatchers(AUTH_WHITE_LIST).permitAll()
-                                .anyRequest().authenticated()
-                );
+//        http.csrf(csrf -> csrf.disable())
+//                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+//                .authorizeHttpRequests(auth ->
+//                        auth.antMatchers("/api/auth/**").permitAll()
+//                                //.antMatchers("/api/test/**").permitAll()
+//                                .antMatchers(AUTH_WHITE_LIST).permitAll()
+//                                .anyRequest().authenticated()
+//                );
+        http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers(AUTH_WHITE_LIST).permitAll()
+                .anyRequest()
+                .authenticated();
+
 
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         return http.build();
     }

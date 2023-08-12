@@ -33,8 +33,8 @@ public class ReservationServiceImpl implements ReservationService {
         return new SuccessDataResult<>(responses, "list reservation");
     }
 
-    public DataResult<List<Reservation>> getReservationsByUserId(Long userId) {
-        return new SuccessDataResult<>(reservationRepository.findByUsersId(userId));
+    public DataResult<List<Reservation>> getReservationsByUserId(String userId) {
+        return new SuccessDataResult<>(reservationRepository.findByUsersUsername(userId));
     }
 
     @Override
