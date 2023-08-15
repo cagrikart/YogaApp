@@ -25,7 +25,7 @@ public class LessonsMapperUtil {
         response.setSession(lessons.getSession());
         response.setFinishingDate(lessons.getFinishingDate());
         response.setStartingDate(lessons.getStartingDate());
-        response.setUserId(lessons.getUsers().getId());
+        response.setUserId(lessons.getUser().getId());
         return response;
     }
     public Lessons postLessons(LessonsRequest request) {
@@ -35,7 +35,7 @@ public class LessonsMapperUtil {
         lessons.setProcess(request.getProcess());
         Optional<User> userOptional = this.userRepository.findById(request.getUserId());
         if (userOptional.isPresent()) {
-            lessons.setUsers(userOptional.get());
+            lessons.setUser(userOptional.get());
         }
         lessons.setFinishingDate(request.getFinishingDate());
         lessons.setStartingDate(request.getStartingDate());

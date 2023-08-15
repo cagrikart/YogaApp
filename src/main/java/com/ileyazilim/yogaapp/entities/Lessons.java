@@ -20,5 +20,5 @@ public class Lessons {
     private String process;
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = true)
-    private User users;
+    private User user;
 }

@@ -21,7 +21,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","reservation,package,lessons"})
-
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

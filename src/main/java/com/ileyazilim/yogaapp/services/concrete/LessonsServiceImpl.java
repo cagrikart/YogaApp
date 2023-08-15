@@ -28,12 +28,12 @@ public class LessonsServiceImpl implements LessonsService {
     public DataResult<List<LessonsResponse>> listLessons() {
         List<Lessons>lessons = lessonsRepository.findAll();
         List<LessonsResponse> responses = lessons.stream().map(mapperUtil::listLessons).collect(Collectors.toList());
-        return new SuccessDataResult<>(responses, "listl lessons");
+        return new SuccessDataResult<>(responses, "listl lesson");
     }
 
     @Override
     public DataResult<List<Lessons>> getLessonsByUserId(Long userId) {
-        return new SuccessDataResult<>(lessonsRepository.findByUsersId(userId));
+        return new SuccessDataResult<List<Lessons>>(lessonsRepository.findByUserId(userId),"listelendi?");
 
     }
 
@@ -54,7 +54,7 @@ public class LessonsServiceImpl implements LessonsService {
         if (lessonsDb.isPresent()) {
             lessons = lessonsDb.get();
             lessons.setProcess(request.getProcess());
-            lessons.setUsers(user);
+            lessons.setUser(user);
         }
         Lessons updatelessons = lessonsRepository.save(lessons);
         return new SuccessDataResult<>(updatelessons,"update process");

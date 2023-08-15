@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LessonsRepository extends JpaRepository<Lessons,Long> {
-    List<Lessons> findByUsersId(Long userId);
+    List<Lessons> findByUserId(Long userId);
 
 }
